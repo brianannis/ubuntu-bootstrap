@@ -1,0 +1,106 @@
+---
+# tasks file for gnome
+
+- name: Update all packages to the latest version
+  apt:
+    upgrade: dist
+
+- name: Add gnome repo
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+  - 'ppa:gnome3-team/gnome3'
+  - 'ppa:snwh/pulp'
+
+- name: Install gnome
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+  - ubuntu-gnome-desktop
+  - paper-icon-theme
+  - paper-cursor-theme
+
+- name: Download flatplat
+  unarchive:
+    src: https://github.com/nana-4/Flat-Plat/archive/v20170323.tar.gz
+    dest: /tmp
+    copy: no
+
+- name: Install flatplat
+  shell: ./install.sh
+  args:
+    chdir: /tmp/Flat-Plat-20170323
+
+- name: Install extensions
+  gnome_shell_extension:
+    id: "{{ item.id }}"
+    gnome_extension_path: "{{ item.path }}"
+  with_items:
+  - { id: '1160', path: "/home/{{ ansible_user }}/.local/share/gnome-shell/extensions/" }
+  - { id: '800', path: "/home/{{ ansible_user }}/.local/share/gnome-shell/extensions/" }
+  - { id: '1031', path: "/home/{{ ansible_user }}/.local/share/gnome-shell/extensions/" }
+  - { id: '19', path: "/home/{{ ansible_user }}/.local/share/gnome-shell/extensions/" }
+
+- name: Correct permissions
+  file:
+    name: "/home/{{ ansible_user }}/.local"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    state: directory
+    recurse: yes
+
+- name: Download assets
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0644'
+  with_items:
+  - {url: 'https://s3.amazonaws.com/indieobscura-www/assets/article/2017/01/06/Firewatch-Mod-Night-Final_feature.jpg', dest: "/home/{{ ansible_user }}/firewatch.jpg"}
+
+- name: Unzip fonts
+  unarchive:
+    src: 'https://github.com/RedHatBrand/Overpass/releases/download/3.0.2/overpass-desktop-fonts.zip'
+    dest: /usr/share/fonts
+    copy: no
+
+- name: Configure theme
+  gsettings:
+    user: "{{ ansible_user }}"
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+  with_items:
+  - { key: org.gnome.desktop.interface.gtk-theme, value: "'Flat-Plat'" }
+  - { key: org.gnome.desktop.interface.icon-theme, value: "'Paper'" }
+  - { key: org.gnome.desktop.interface.cursor-theme, value: "'Paper'" }
+  - { key: org.gnome.desktop.interface.gtk-key-theme, value: "'Flat-Plat'" }
+  - { key: org.gnome.desktop.interface.monospace-font-name, value: "'Overpass Mono 11'" }
+  - { key: org.gnome.desktop.interface.font-name, value: "'Overpass 11'" }
+  - { key: org.gnome.desktop.interface.document-font-name, value: "'Overpass 11'" }
+  - { key: org.gnome.shell.extensions.user-theme.name, value: "'Flat-Plat'" }
+  - { key: org.gnome.desktop.wm.preferences.theme, value: "'Flat-Plat'" }
+  - { key: org.gnome.desktop.wm.preferences.titlebar-font, value: "'Overpass Bold 11'" }
+  - { key: org.gnome.desktop.background.picture-uri, value: "file:///home/{{ ansible_user }}/firewatch.jpg" }
+  - { key: org.gnome.shell.enabled-extensions, value: "['dash-to-panel@jderose9.github.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'TopIcons@phocean.net', 'remove-dropdown-arrows@mpdeimos.com']" }
+
+- name: Copy lockscreen config
+  copy:
+    src: /usr/share/themes/Flat-Plat/gnome-shell/gnome-shell-theme.gresource
+    dest: /usr/share/gnome-shell/gnome-shell-theme.gresource
+    owner: root
+    group: root
+    mode: '0644'
+    remote_src: true
+    backup: true
+
+- name: Copy gnome terminal config
+  copy:
+    src: glacier.sh
+    dest: "/home/{{ ansible_user }}/glacier.sh"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0755'

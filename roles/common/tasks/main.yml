@@ -1,0 +1,66 @@
+---
+# tasks file for common
+
+- name: Add ppa repos
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+  - 'ppa:zeal-developers/ppa'
+
+- name: Install chrome key
+  apt_key:
+    url: "https://dl-ssl.google.com/linux/linux_signing_key.pub"
+    state: present
+
+- name: Install spotify key
+  apt_key:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: 'BBEBDCB318AD50EC6865090613B00F1FD2C19886'
+
+- name: Install chrome repo
+  apt_repository:
+    repo: "{{ item.repo }}"
+    state: present
+    filename: "{{ item.filename }}"
+  with_items:
+  - {repo: 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main', filename: 'google-chrome'}
+  - {repo: 'deb http://repository.spotify.com stable non-free', filename: 'spotify' }
+
+- name: Install common binaries
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+  - vpnc
+  - network-manager-vpnc-gnome
+  - zeal
+  - google-chrome-stable
+  - spotify-client
+  - wget
+  - htop
+  - python-pip
+  - screenfetch
+
+- name: Install web binaries
+  apt:
+    deb: "{{ item }}"
+    state: present
+  with_items:
+  - 'https://github.com/atom/atom/releases/download/v1.16.0/atom-amd64.deb'
+  - 'https://downloads.slack-edge.com/linux_releases/slack-desktop-2.5.2-amd64.deb'
+  - 'https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb'
+
+- block:
+    - name: Install atom packages
+      shell: apm install sync-settings@0.8.1
+  rescue:
+    - name: apm not availible
+      debug:
+        msg: "There was an error accessing apm"
+
+- name: Install ansible
+  pip:
+    name: ansible
+    state: present

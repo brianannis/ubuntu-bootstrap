@@ -1,0 +1,6 @@
+- hosts: workstation
+  become: yes
+  gather_facts: yes
+  roles:
+    - { role: gnome, tags: 'gnome'}
+    - { role: common, tags: 'common'}
