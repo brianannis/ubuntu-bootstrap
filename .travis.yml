@@ -1,0 +1,15 @@
+---
+os:
+  - ubuntu
+dist: trusty
+
+# Use the new container infrastructure
+#sudo: false
+
+before_install:
+  - sudo apt-get install python python-pip
+  - pip install ansible
+
+script:
+  # Basic role syntax check
+  - ansible-playbook -i localhost provision.yml --syntax-check
