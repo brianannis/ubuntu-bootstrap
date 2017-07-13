@@ -48,7 +48,7 @@
     deb: "{{ item }}"
     state: present
   with_items:
-  - 'https://github.com/atom/atom/releases/download/v1.16.0/atom-amd64.deb'
+  - 'https://github.com/atom/atom/releases/download/v1.18.0/atom-amd64.deb'
   - 'https://downloads.slack-edge.com/linux_releases/slack-desktop-2.5.2-amd64.deb'
   - 'https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb'
 
