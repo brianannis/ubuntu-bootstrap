@@ -8,6 +8,7 @@
     update_cache: yes
   with_items:
   - 'ppa:zeal-developers/ppa'
+  - 'ppa:ansible/ansible'
 
 - name: Install chrome key
   apt_key:
@@ -42,6 +43,7 @@
   - htop
   - python-pip
   - screenfetch
+  - ansible
 
 - name: Install web binaries
   apt:
@@ -59,8 +61,3 @@
     - name: apm not availible
       debug:
         msg: "There was an error accessing apm"
-
-- name: Install ansible
-  pip:
-    name: ansible
-    state: present
