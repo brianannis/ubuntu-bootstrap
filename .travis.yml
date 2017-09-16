@@ -22,4 +22,4 @@ jobs:
     - stage: smoketest
       script:
         - ansible-playbook -i localhost provision.yml --syntax-check
-        - ansible-playbook -i ci provision.yml --tags common
+        # - ansible-playbook -i ci provision.yml --tags common
