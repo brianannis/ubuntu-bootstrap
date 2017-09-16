@@ -60,7 +60,7 @@
     group: "{{ ansible_user }}"
     mode: '0644'
   with_items:
-  - {url: 'https://s3.amazonaws.com/indieobscura-www/assets/article/2017/01/06/Firewatch-Mod-Night-Final_feature.jpg', dest: "/home/{{ ansible_user }}/firewatch.jpg"}
+  - {url: 'http://awesomwallpaper.com/img2/34DFBB26AD3B8CE2/mountain-minimalist.png', dest: "/home/{{ ansible_user }}/mountain-minimalist.png"}
 
 - name: Unzip fonts
   unarchive:
@@ -84,7 +84,7 @@
   - { key: org.gnome.shell.extensions.user-theme.name, value: "'Flat-Plat'" }
   - { key: org.gnome.desktop.wm.preferences.theme, value: "'Flat-Plat'" }
   - { key: org.gnome.desktop.wm.preferences.titlebar-font, value: "'Overpass Bold 11'" }
-  - { key: org.gnome.desktop.background.picture-uri, value: "file:///home/{{ ansible_user }}/firewatch.jpg" }
+  - { key: org.gnome.desktop.background.picture-uri, value: "file:///home/{{ ansible_user }}/mountain-minimalist.png" }
   - { key: org.gnome.shell.enabled-extensions, value: "['dash-to-panel@jderose9.github.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'TopIcons@phocean.net', 'remove-dropdown-arrows@mpdeimos.com']" }
 
 - name: Copy lockscreen config
