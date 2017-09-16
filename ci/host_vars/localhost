@@ -1,0 +1,2 @@
+ansible_user: travis
+ansible_connection: local

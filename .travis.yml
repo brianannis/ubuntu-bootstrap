@@ -6,7 +6,7 @@ dist: trusty
 language: python
 
 # Use the new container infrastructure
-#sudo: false
+sudo: required
 
 before_install:
   - sudo apt-get update
@@ -18,3 +18,4 @@ before_install:
 script:
   # Basic role syntax check
   - ansible-playbook -i localhost provision.yml --syntax-check
+  - ansible-playbook -i localhost provision.yml --list-tasks --list-hosts
