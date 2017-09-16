@@ -4,6 +4,7 @@
 - name: Update all packages to the latest version
   apt:
     upgrade: dist
+  when: lookup('env','TRAVIS') != 'true'
 
 - name: Add gnome repo
   apt_repository:
