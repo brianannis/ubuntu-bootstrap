@@ -15,7 +15,13 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install ansible
 
-script:
-  # Basic role syntax check
-  - ansible-playbook -i localhost provision.yml --syntax-check
-  - ansible-playbook -i ci provision.yml --list-tasks --list-hosts
+stages:
+  - smoketest
+  - integration
+
+jobs:
+  include:
+    - stage: smoketest
+      script: ansible-playbook -i localhost provision.yml --syntax-check
+    - stage: integration
+      script: ansible-playbook -i ci provision.yml
