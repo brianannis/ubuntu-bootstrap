@@ -18,4 +18,4 @@ before_install:
 script:
   # Basic role syntax check
   - ansible-playbook -i localhost provision.yml --syntax-check
-  - ansible-playbook -i localhost provision.yml --list-tasks --list-hosts
+  - ansible-playbook -i ci provision.yml --list-tasks --list-hosts
