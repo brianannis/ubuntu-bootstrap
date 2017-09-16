@@ -9,19 +9,17 @@ language: python
 sudo: required
 
 before_install:
-  - sudo apt-get update
-  - sudo apt-get install software-properties-common
   - sudo apt-add-repository ppa:ansible/ansible -y
   - sudo apt-get update
   - sudo apt-get install ansible
+  - sudo service postgresql stop
 
 stages:
   - smoketest
-  - integration
 
 jobs:
   include:
     - stage: smoketest
-      script: ansible-playbook -i localhost provision.yml --syntax-check
-    - stage: integration
-      script: ansible-playbook -i ci provision.yml
+      script:
+        - ansible-playbook -i localhost provision.yml --syntax-check
+        - ansible-playbook -i ci provision.yml
