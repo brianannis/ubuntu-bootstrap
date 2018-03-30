@@ -10,17 +10,20 @@
   - 'ppa:zeal-developers/ppa'
   - 'ppa:ansible/ansible'
 
-- name: Install chrome key
+- name: Install chrome + atom keys
   apt_key:
-    url: "https://dl-ssl.google.com/linux/linux_signing_key.pub"
-    state: present
+    url: "{{ item.url }}"
+    state: "{{ item.present }}"
+  with_items:
+    - { url: "https://dl-ssl.google.com/linux/linux_signing_key.pub", state: present }
+    - { url: "https://packagecloud.io/AtomEditor/atom/gpgkey", state: present }
 
 - name: Install spotify key
   apt_key:
     keyserver: hkp://keyserver.ubuntu.com:80
     id: 'BBEBDCB318AD50EC6865090613B00F1FD2C19886'
 
-- name: Install chrome repo
+- name: Install repos
   apt_repository:
     repo: "{{ item.repo }}"
     state: present
@@ -28,6 +31,7 @@
   with_items:
   - {repo: 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main', filename: 'google-chrome'}
   - {repo: 'deb http://repository.spotify.com stable non-free', filename: 'spotify' }
+  - {repo: 'deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main', filename: 'atom' }
 
 - name: Install common binaries
   apt:
@@ -44,14 +48,14 @@
   - python-pip
   - screenfetch
   - ansible
+  - atom
 
 - name: Install web binaries
   apt:
     deb: "{{ item }}"
     state: present
   with_items:
-  - 'https://github.com/atom/atom/releases/download/v1.18.0/atom-amd64.deb'
-  - 'https://downloads.slack-edge.com/linux_releases/slack-desktop-2.5.2-amd64.deb'
+  - 'https://downloads.slack-edge.com/linux_releases/slack-desktop-3.1.0-amd64.deb'
   - 'https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb'
 
 - block:
