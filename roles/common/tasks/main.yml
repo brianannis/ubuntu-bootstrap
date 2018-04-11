@@ -8,7 +8,6 @@
     update_cache: yes
   with_items:
   - 'ppa:zeal-developers/ppa'
-  - 'ppa:ansible/ansible'
 
 - name: Install chrome + atom keys
   apt_key:
@@ -55,12 +54,12 @@
     deb: "{{ item }}"
     state: present
   with_items:
-  - 'https://downloads.slack-edge.com/linux_releases/slack-desktop-3.1.0-amd64.deb'
+  - 'https://downloads.slack-edge.com/linux_releases/slack-desktop-3.1.1-amd64.deb'
   - 'https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb'
 
 - block:
     - name: Install atom packages
-      shell: apm install sync-settings@0.8.1
+      shell: apm install sync-settings@0.8.6
   rescue:
     - name: apm not availible
       debug:
