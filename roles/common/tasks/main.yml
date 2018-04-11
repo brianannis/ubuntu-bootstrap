@@ -1,14 +1,6 @@
 ---
 # tasks file for common
 
-- name: Add ppa repos
-  apt_repository:
-    repo: "{{ item }}"
-    state: present
-    update_cache: yes
-  with_items:
-  - 'ppa:zeal-developers/ppa'
-
 - name: Install chrome + atom keys
   apt_key:
     url: "{{ item.url }}"

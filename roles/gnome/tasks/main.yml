@@ -6,7 +6,7 @@
     upgrade: dist
   when: lookup('env','TRAVIS') != 'true'
 
-- name: Add gnome repo
+- name: Add paper repo
   apt_repository:
     repo: "{{ item }}"
     state: present
@@ -14,7 +14,7 @@
   with_items:
   - 'ppa:snwh/pulp'
 
-- name: Install gnome
+- name: Install paper icons
   apt:
     name: "{{ item }}"
     state: present
@@ -28,7 +28,7 @@
     dest: /tmp
     copy: no
 
-- name: Install flatplat
+- name: Install Materia
   shell: ./install.sh
   args:
     chdir: /tmp/materia-theme-20180321
