@@ -12,7 +12,6 @@
     state: present
     update_cache: yes
   with_items:
-  - 'ppa:gnome3-team/gnome3'
   - 'ppa:snwh/pulp'
 
 - name: Install gnome
@@ -20,20 +19,19 @@
     name: "{{ item }}"
     state: present
   with_items:
-  - ubuntu-gnome-desktop
   - paper-icon-theme
   - paper-cursor-theme
 
 - name: Download flatplat
   unarchive:
-    src: https://github.com/nana-4/Flat-Plat/archive/v20170323.tar.gz
+    src: https://github.com/nana-4/materia-theme/archive/v20180321.zip
     dest: /tmp
     copy: no
 
 - name: Install flatplat
   shell: ./install.sh
   args:
-    chdir: /tmp/Flat-Plat-20170323
+    chdir: /tmp/materia-theme-20180321
 
 - name: Install extensions
   gnome_shell_extension:
@@ -61,7 +59,7 @@
     group: "{{ ansible_user }}"
     mode: '0644'
   with_items:
-  - {url: 'http://awesomwallpaper.com/img2/34DFBB26AD3B8CE2/mountain-minimalist.png', dest: "/home/{{ ansible_user }}/mountain-minimalist.png"}
+  - {url: 'https://d3vv6lp55qjaqc.cloudfront.net/items/113T0b0f1Z302a1V3G3S/5120x2880.png', dest: "/home/{{ ansible_user }}/mountain-minimalist.png"}
 
 - name: Unzip fonts
   unarchive:
