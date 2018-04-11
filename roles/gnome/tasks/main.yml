@@ -22,7 +22,7 @@
   - paper-icon-theme
   - paper-cursor-theme
 
-- name: Download flatplat
+- name: Download Materia
   unarchive:
     src: https://github.com/nana-4/materia-theme/archive/v20180321.zip
     dest: /tmp
@@ -88,7 +88,7 @@
 
 - name: Copy lockscreen config
   copy:
-    src: /usr/share/themes/Materia/gnome-shell/gnome-shell-theme.gresource
+    src: /usr/share/themes/Materia/gnome-shell/gnome-shell-theme.gresource.xml
     dest: /usr/share/gnome-shell/gnome-shell-theme.gresource
     owner: root
     group: root
