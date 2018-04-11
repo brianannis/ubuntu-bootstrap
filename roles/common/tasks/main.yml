@@ -4,7 +4,7 @@
 - name: Install chrome + atom keys
   apt_key:
     url: "{{ item.url }}"
-    state: "{{ item.present }}"
+    state: "{{ item.state }}"
   with_items:
     - { url: "https://dl-ssl.google.com/linux/linux_signing_key.pub", state: present }
     - { url: "https://packagecloud.io/AtomEditor/atom/gpgkey", state: present }
