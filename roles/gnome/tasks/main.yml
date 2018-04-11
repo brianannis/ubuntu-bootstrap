@@ -88,7 +88,7 @@
 
 - name: Copy lockscreen config
   copy:
-    src: /usr/share/themes/Flat-Plat/gnome-shell/gnome-shell-theme.gresource
+    src: /usr/share/themes/Materia/gnome-shell/gnome-shell-theme.gresource
     dest: /usr/share/gnome-shell/gnome-shell-theme.gresource
     owner: root
     group: root
