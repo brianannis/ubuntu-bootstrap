@@ -54,8 +54,8 @@
   copy:
     src: .hyper.js
     dest: "/home/{{ ansible_user }}/.hyper.js"
-    owner: {{ ansible_user }}
-    group: {{ ansible_user }}
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: '0664'
 
 - block:
