@@ -91,18 +91,19 @@
   lineinfile:
     path: /usr/share/gnome-shell/theme/ubuntu.css
     regexp: '^  background: #2c001e url.*'
-    state: absent
-
-- name: Change lock screen
-  lineinfile:
-    path: /usr/share/gnome-shell/theme/ubuntu.css
-    firstmatch: yes
-    regexp: '^#lockDialogGroup {'
-    insertafter: '^#lockDialogGroup {'
     line: '  background: #505050 url(resource:///org/gnome/shell/theme/noise-texture.png);'
-    owner: root
-    group: root
-    mode: 0644
+    # state: absent
+
+# - name: Change lock screen
+#   lineinfile:
+#     path: /usr/share/gnome-shell/theme/ubuntu.css
+#     firstmatch: yes
+#     regexp: '^#lockDialogGroup {'
+#     insertafter: '^#lockDialogGroup {'
+#     line: '  background: #505050 url(resource:///org/gnome/shell/theme/noise-texture.png);'
+#     owner: root
+#     group: root
+#     mode: 0644
 
 - name: Copy gnome terminal config
   copy:
