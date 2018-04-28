@@ -28,6 +28,7 @@
     src: https://github.com/nana-4/materia-theme/archive/v20180321.zip
     dest: /tmp
     copy: no
+    creates: /tmp/materia-theme-20180321
 
 - name: Install Materia
   shell: ./install.sh
