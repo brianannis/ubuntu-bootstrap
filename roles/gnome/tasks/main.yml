@@ -88,7 +88,7 @@
 
 - name: Copy lockscreen config
   copy:
-    src: /usr/share/themes/Materia/gnome-shell/ubuntu.css
+    src: /usr/share/themes/Materia/gnome-shell/gnome-shell.css
     dest: /usr/share/gnome-shell/theme/ubuntu.css
     owner: root
     group: root
