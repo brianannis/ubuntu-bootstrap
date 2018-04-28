@@ -78,25 +78,24 @@
   - { key: org.gnome.desktop.interface.icon-theme, value: "'Paper'" }
   - { key: org.gnome.desktop.interface.cursor-theme, value: "'Paper'" }
   - { key: org.gnome.desktop.interface.gtk-key-theme, value: "'Default'" }
-#   - { key: org.gnome.desktop.interface.monospace-font-name, value: "'Overpass Mono 11'" }
-#   - { key: org.gnome.desktop.interface.font-name, value: "'Overpass 11'" }
-#   - { key: org.gnome.desktop.interface.document-font-name, value: "'Overpass 11'" }
-#   - { key: org.gnome.shell.extensions.user-theme.name, value: "'Materia'" }
+  - { key: org.gnome.desktop.interface.monospace-font-name, value: "'Overpass Mono 11'" }
+  - { key: org.gnome.desktop.interface.font-name, value: "'Overpass 11'" }
+  - { key: org.gnome.desktop.interface.document-font-name, value: "'Overpass 11'" }
+  # - { key: org.gnome.shell.extensions.user-theme.name, value: "'Materia'" }
 #   - { key: org.gnome.desktop.wm.preferences.theme, value: "'Materia'" }
-#   - { key: org.gnome.desktop.wm.preferences.titlebar-font, value: "'Overpass Bold 11'" }
+  - { key: org.gnome.desktop.wm.preferences.titlebar-font, value: "'Overpass Bold 11'" }
   - { key: org.gnome.desktop.background.picture-uri, value: "file:///home/{{ ansible_user }}/mountain-minimalist.png" }
-#   - { key: org.gnome.shell.enabled-extensions, value: "['dash-to-panel@jderose9.github.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'TopIcons@phocean.net', 'remove-dropdown-arrows@mpdeimos.com']" }
-  - { key: org.gnome.shell.enabled-extensions, value: "['user-theme@gnome-shell-extensions.gcampax.github.com']" }
+  - { key: org.gnome.shell.enabled-extensions, value: "['dash-to-panel@jderose9.github.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'TopIcons@phocean.net', 'remove-dropdown-arrows@mpdeimos.com']" }
 
-# - name: Copy lockscreen config
-#   copy:
-#     src: /usr/share/themes/Materia/gnome-shell/gnome-shell-theme.gresource.xml
-#     dest: /usr/share/gnome-shell/gnome-shell-theme.gresource
-#     owner: root
-#     group: root
-#     mode: '0644'
-#     remote_src: true
-#     backup: true
+- name: Copy lockscreen config
+  copy:
+    src: /usr/share/themes/Materia/gnome-shell/gnome-shell-theme.gresource.xml
+    dest: /usr/share/gnome-shell/gnome-shell-theme.gresource
+    owner: root
+    group: root
+    mode: '0644'
+    remote_src: true
+    backup: true
 
 - name: Copy gnome terminal config
   copy:
