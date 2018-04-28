@@ -78,6 +78,7 @@
   # - { key: org.gnome.shell.extensions.user-theme.name, value: "'Materia'" }
   # - { key: org.gnome.desktop.wm.preferences.theme, value: "'Materia'" }
   - { key: org.gnome.desktop.background.picture-uri, value: "'file:///home/{{ ansible_user }}/mountain-minimalist.png'" }
+  - { key: org.gnome.desktop.screensaver.picture-uri, value: "'file:///home/{{ ansible_user }}/mountain-minimalist.png'" }
   - { key: org.gnome.desktop.screensaver.ubuntu-lock-on-suspend, value: "false" }
   - { key: org.gnome.shell.enabled-extensions, value: "['dash-to-panel@jderose9.github.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'TopIcons@phocean.net', 'remove-dropdown-arrows@mpdeimos.com']" }
 
