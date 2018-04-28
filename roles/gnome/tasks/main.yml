@@ -1,10 +1,10 @@
 ---
 # tasks file for gnome
 
-# - name: Update all packages to the latest version
-#   apt:
-#     upgrade: dist
-#   when: lookup('env','TRAVIS') != 'true'
+- name: Update all packages to the latest version
+  apt:
+    upgrade: dist
+  when: lookup('env','TRAVIS') != 'true'
 
 - name: Add paper repo
   apt_repository:

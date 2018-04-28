@@ -50,6 +50,14 @@
   - 'https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb'
   - 'https://github.com/zeit/hyper/releases/download/2.0.0/hyper_2.0.0_amd64.deb'
 
+- name: Copy hyper config
+  copy:
+    src: .hyper.js
+    dest: "/home/{{ ansible_user }}/.hyper.js"
+    owner: {{ ansible_user }}
+    group: {{ ansible_user }}
+    mode: '0664'
+
 - block:
     - name: Install atom packages
       shell: apm install sync-settings@0.8.6
