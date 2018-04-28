@@ -87,23 +87,11 @@
   - { key: org.gnome.desktop.background.picture-uri, value: "file:///home/{{ ansible_user }}/mountain-minimalist.png" }
   - { key: org.gnome.shell.enabled-extensions, value: "['dash-to-panel@jderose9.github.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'TopIcons@phocean.net', 'remove-dropdown-arrows@mpdeimos.com']" }
 
-- name: Remove lock screen color
+- name: Change lock screen color
   replace:
     path: /usr/share/gnome-shell/theme/ubuntu.css
     regexp: '^  background: #2c001e url.*'
     replace: '  background: #505050 url(resource:///org/gnome/shell/theme/noise-texture.png);'
-    # state: absent
-
-# - name: Change lock screen
-#   lineinfile:
-#     path: /usr/share/gnome-shell/theme/ubuntu.css
-#     firstmatch: yes
-#     regexp: '^#lockDialogGroup {'
-#     insertafter: '^#lockDialogGroup {'
-#     line: '  background: #505050 url(resource:///org/gnome/shell/theme/noise-texture.png);'
-#     owner: root
-#     group: root
-#     mode: 0644
 
 - name: Copy gnome terminal config
   copy:
