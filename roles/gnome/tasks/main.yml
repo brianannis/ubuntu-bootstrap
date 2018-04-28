@@ -69,6 +69,7 @@
     dest: /usr/share/fonts
     copy: no
 
+## Will need to change shell theme for now
 - name: Configure theme
   gsettings:
     user: "{{ ansible_user }}"
@@ -82,8 +83,6 @@
   - { key: org.gnome.desktop.interface.monospace-font-name, value: "'Overpass Mono 11'" }
   - { key: org.gnome.desktop.interface.font-name, value: "'Overpass 11'" }
   - { key: org.gnome.desktop.interface.document-font-name, value: "'Overpass 11'" }
-  - { key: org.gnome.shell.extensions.user-theme.name, value: "'Materia'" }
-  - { key: org.gnome.desktop.wm.preferences.theme, value: "'Materia'" }
   - { key: org.gnome.desktop.wm.preferences.titlebar-font, value: "'Overpass Bold 11'" }
   - { key: org.gnome.desktop.background.picture-uri, value: "file:///home/{{ ansible_user }}/mountain-minimalist.png" }
   - { key: org.gnome.shell.enabled-extensions, value: "['dash-to-panel@jderose9.github.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'TopIcons@phocean.net', 'remove-dropdown-arrows@mpdeimos.com']" }
