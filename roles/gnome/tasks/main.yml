@@ -14,7 +14,7 @@
   with_items:
   - 'ppa:snwh/pulp'
 
-- name: Install paper icons
+- name: Install materia + paper icons
   apt:
     name: "{{ item }}"
     state: present
@@ -23,18 +23,8 @@
   - paper-cursor-theme
   - materia-gtk-theme
   - gnome-tweak-tool
-
-# - name: Download Materia
-#   unarchive:
-#     src: https://github.com/nana-4/materia-theme/archive/v20180321.zip
-#     dest: /tmp
-#     copy: no
-#     creates: /tmp/materia-theme-20180321
-#
-# - name: Install Materia
-#   shell: ./install.sh
-#   args:
-#     chdir: /tmp/materia-theme-20180321
+  - libglib2.0-dev
+  - libxml2-utils
 
 - name: Install extensions
   gnome_shell_extension:
@@ -90,11 +80,20 @@
   - { key: org.gnome.desktop.background.picture-uri, value: "file:///home/{{ ansible_user }}/mountain-minimalist.png" }
   - { key: org.gnome.shell.enabled-extensions, value: "['dash-to-panel@jderose9.github.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'TopIcons@phocean.net', 'remove-dropdown-arrows@mpdeimos.com']" }
 
-- name: Change lock screen color
-  replace:
-    path: /usr/share/gnome-shell/theme/ubuntu.css
-    regexp: '^  background: #2c001e url.*'
-    replace: '  background: #505050 url(resource:///org/gnome/shell/theme/noise-texture.png);'
+- name: Render lockscreen
+  shell: glib-compile-resources --target=/usr/share/gnome-shell/gnome-shell-theme.gresource gnome-shell-theme.gresource.xml
+  args:
+    chdir: /usr/share/themes/Materia/gnome-shell
+
+- name: Copy lockscreen config
+  copy:
+    src: /usr/share/themes/Materia/gnome-shell/ubuntu.css
+    dest: /usr/share/gnome-shell/theme/ubuntu.css
+    owner: root
+    group: root
+    mode: '0644'
+    remote_src: true
+    backup: true
 
 - name: Copy gnome terminal config
   copy:
