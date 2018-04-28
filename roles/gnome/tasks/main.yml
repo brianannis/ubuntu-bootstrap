@@ -21,19 +21,20 @@
   with_items:
   - paper-icon-theme
   - paper-cursor-theme
+  - materia-gtk-theme
   - gnome-tweak-tool
 
-- name: Download Materia
-  unarchive:
-    src: https://github.com/nana-4/materia-theme/archive/v20180321.zip
-    dest: /tmp
-    copy: no
-    creates: /tmp/materia-theme-20180321
-
-- name: Install Materia
-  shell: ./install.sh
-  args:
-    chdir: /tmp/materia-theme-20180321
+# - name: Download Materia
+#   unarchive:
+#     src: https://github.com/nana-4/materia-theme/archive/v20180321.zip
+#     dest: /tmp
+#     copy: no
+#     creates: /tmp/materia-theme-20180321
+#
+# - name: Install Materia
+#   shell: ./install.sh
+#   args:
+#     chdir: /tmp/materia-theme-20180321
 
 - name: Install extensions
   gnome_shell_extension:
@@ -84,8 +85,8 @@
   - { key: org.gnome.desktop.interface.font-name, value: "'Overpass 11'" }
   - { key: org.gnome.desktop.interface.document-font-name, value: "'Overpass 11'" }
   - { key: org.gnome.desktop.wm.preferences.titlebar-font, value: "'Overpass Bold 11'" }
-  - { key: org.gnome.shell.extensions.user-theme.name, value: "'Materia'" }
-  - { key: org.gnome.desktop.wm.preferences.theme, value: "'Materia'" }
+  # - { key: org.gnome.shell.extensions.user-theme.name, value: "'Materia'" }
+  # - { key: org.gnome.desktop.wm.preferences.theme, value: "'Materia'" }
   - { key: org.gnome.desktop.background.picture-uri, value: "file:///home/{{ ansible_user }}/mountain-minimalist.png" }
   - { key: org.gnome.shell.enabled-extensions, value: "['dash-to-panel@jderose9.github.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'TopIcons@phocean.net', 'remove-dropdown-arrows@mpdeimos.com']" }
 
