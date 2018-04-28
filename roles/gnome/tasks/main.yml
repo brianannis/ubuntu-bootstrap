@@ -88,11 +88,10 @@
   - { key: org.gnome.shell.enabled-extensions, value: "['dash-to-panel@jderose9.github.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'TopIcons@phocean.net', 'remove-dropdown-arrows@mpdeimos.com']" }
 
 - name: Remove lock screen color
-  lineinfile:
+  replace:
     path: /usr/share/gnome-shell/theme/ubuntu.css
     regexp: '^  background: #2c001e url.*'
     line: '  background: #505050 url(resource:///org/gnome/shell/theme/noise-texture.png);'
-    backrefs: yes
     # state: absent
 
 # - name: Change lock screen
