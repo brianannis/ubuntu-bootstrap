@@ -90,7 +90,7 @@
 - name: Remove lock screen color
   lineinfile:
     path: /usr/share/gnome-shell/theme/ubuntu.css
-    regexp: '^background: #505050 url.*'
+    regexp: '^  background: #505050 url.*'
     state: absent
 
 # - name: Change lock screen
