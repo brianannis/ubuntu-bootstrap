@@ -40,6 +40,7 @@
   - screenfetch
   - ansible
   - atom
+  - gconf-editor
 
 - name: Install web binaries
   apt:
