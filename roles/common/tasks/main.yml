@@ -3,9 +3,15 @@
 
 - name: Remove amazon shortcut
   apt:
-    name: ubuntu-web-launchers
+    name: "{{ item }}"
     state: absent
     purge: yes
+  with_items:
+   - ubuntu-web-launchers
+   - aisleriot
+   - gnome-mahjongg
+   - gnome-mines
+   - gnome-sudoku
 
 - name: Install chrome + atom keys
   apt_key:
