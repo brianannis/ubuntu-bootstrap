@@ -1,6 +1,12 @@
 ---
 # tasks file for common
 
+- name: Remove amazon shortcut
+  apt:
+    name: ubuntu-web-launchers
+    state: absent
+    purge: yes
+
 - name: Install chrome + atom keys
   apt_key:
     url: "{{ item.url }}"
