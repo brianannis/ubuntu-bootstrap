@@ -6,6 +6,11 @@
     upgrade: dist
   when: lookup('env','TRAVIS') != 'true'
 
+- name: Install gnome
+  apt:
+    name: gnome-session,gdm3
+    state: present
+
 - name: Add paper repo
   apt_repository:
     repo: "{{ item }}"
@@ -16,15 +21,8 @@
 
 - name: Install materia + paper icons
   apt:
-    name: "{{ item }}"
+    name: paper-icon-theme,paper-cursor-theme,materia-gtk-theme,gnome-tweak-tool,libglib2.0-dev,libxml2-utils
     state: present
-  with_items:
-  - paper-icon-theme
-  - paper-cursor-theme
-  - materia-gtk-theme
-  - gnome-tweak-tool
-  - libglib2.0-dev
-  - libxml2-utils
 
 - name: Install extensions
   gnome_shell_extension:

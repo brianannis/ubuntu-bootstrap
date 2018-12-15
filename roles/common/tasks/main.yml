@@ -13,6 +13,13 @@
    - gnome-mines
    - gnome-sudoku
 
+- name: Create spotify shortcut folder
+  file:
+    path: /usr/share/desktop-directories
+    state: directory
+    owner: root
+    group: root
+
 - name: Install chrome + atom keys
   apt_key:
     url: "{{ item.url }}"
@@ -41,6 +48,7 @@
     name: "{{ item }}"
     state: present
   with_items:
+  - vim
   - vpnc
   - network-manager-vpnc-gnome
   - zeal
@@ -53,6 +61,7 @@
   - ansible
   - atom
   - gconf-editor
+  - gnome-terminal
 
 - name: Install web binaries
   apt:
