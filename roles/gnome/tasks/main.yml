@@ -73,6 +73,7 @@
   - { key: org.gnome.desktop.interface.font-name, value: "'Overpass 11'" }
   - { key: org.gnome.desktop.interface.document-font-name, value: "'Overpass 11'" }
   - { key: org.gnome.desktop.wm.preferences.titlebar-font, value: "'Overpass Bold 11'" }
+  # - { key: org.gnome.desktop.interface.scaling-factor, value: "2" }
   # - { key: org.gnome.shell.extensions.user-theme.name, value: "'Materia'" }
   # - { key: org.gnome.desktop.wm.preferences.theme, value: "'Materia'" }
   - { key: org.gnome.desktop.background.picture-uri, value: "'file:///home/{{ ansible_user }}/mountain-minimalist.png'" }
@@ -94,6 +95,16 @@
     mode: '0644'
     remote_src: true
     backup: true
+
+- name: Change lockscreen scaling for hidpi
+  lineinfile:
+    path: /usr/share/glib-2.0/schemas/org.gnome.desktop.interface.gschema.xml
+    regexp: '<default>0<\/default>'
+    line: '      <default>2</default>'
+    backrefs: yes
+
+- name: Render lockscreen
+  shell: glib-compile-schemas /usr/share/glib-2.0/schemas
 
 - name: Copy gnome terminal config
   copy:
