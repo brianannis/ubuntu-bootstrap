@@ -8,7 +8,7 @@
 
 - name: Install gnome
   apt:
-    name: gnome-session,gdm3
+    name: gnome-session,gdm3,nautilus,gnome-system-monitor,gnome-calculator,eog,gnome-screenshot,gnome-sushi,totem,gnome-disk-utility,gnome-calculator,gnome-logs,gnome-disk-utility
     state: present
 
 - name: Add paper repo
