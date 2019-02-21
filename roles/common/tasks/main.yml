@@ -69,7 +69,6 @@
     state: present
   with_items:
   - 'https://downloads.slack-edge.com/linux_releases/slack-desktop-3.1.1-amd64.deb'
-  - 'https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb'
   - 'https://github.com/zeit/hyper/releases/download/2.0.0/hyper_2.0.0_amd64.deb'
 
 - name: Copy hyper config
