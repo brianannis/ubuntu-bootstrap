@@ -51,6 +51,8 @@
   - vim
   - vpnc
   - network-manager-vpnc-gnome
+  - openconnect
+  - network-manager-openconnect-gnome
   - zeal
   - google-chrome-stable
   - spotify-client
