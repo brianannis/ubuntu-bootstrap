@@ -1,17 +1,13 @@
 ---
 # tasks file for common
 
-- name: Remove amazon shortcut
-  apt:
-    name: "{{ item }}"
-    state: absent
-    purge: yes
-  with_items:
-   - ubuntu-web-launchers
-   - aisleriot
-   - gnome-mahjongg
-   - gnome-mines
-   - gnome-sudoku
+- name: Create bash aliases
+  template:
+    src: bash_profile.j2
+    dest: "{{ ansible_user_dir }}/.bash_profile"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0644'
 
 - name: Create spotify shortcut folder
   file:
@@ -20,13 +16,14 @@
     owner: root
     group: root
 
-- name: Install chrome + atom keys
+- name: Install apt keys
   apt_key:
     url: "{{ item.url }}"
     state: "{{ item.state }}"
   with_items:
     - { url: "https://dl-ssl.google.com/linux/linux_signing_key.pub", state: present }
     - { url: "https://packagecloud.io/AtomEditor/atom/gpgkey", state: present }
+    - { url: "https://download.docker.com/linux/ubuntu/gpg ", state: present }
 
 - name: Install spotify key
   apt_key:
@@ -42,6 +39,7 @@
   - {repo: 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main', filename: 'google-chrome'}
   - {repo: 'deb http://repository.spotify.com stable non-free', filename: 'spotify' }
   - {repo: 'deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main', filename: 'atom' }
+  - {repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable main", filename: 'docker' }
 
 - name: Install common binaries
   apt:
@@ -64,14 +62,30 @@
   - atom
   - gconf-editor
   - gnome-terminal
+  - docker-ce
 
-- name: Install web binaries
+- name: Install web debs
   apt:
     deb: "{{ item }}"
     state: present
   with_items:
   - 'https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb'
-  - 'https://github.com/zeit/hyper/releases/download/2.0.0/hyper_2.0.0_amd64.deb'
+  - 'https://github.com/zeit/hyper/releases/download/2.1.2/hyper_2.1.2_amd64.deb'
+  - 'https://github.com/shiftkey/desktop/releases/download/release-1.6.5-linux6/GitHubDesktop-linux-1.6.5-linux6.deb'
+
+- name: Install web binaries
+  get_url:
+    url: https://github.com/docker/compose/releases/download/1.24.0/docker-compose-Linux-x86_64
+    dest: /usr/local/bin/docker-compose
+    owner: root
+    group: root
+    mode: 0755
+
+- name: add  user to docker group
+  user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: yes
 
 - name: Copy hyper config
   copy:
