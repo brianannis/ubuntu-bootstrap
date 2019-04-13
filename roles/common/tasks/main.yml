@@ -70,7 +70,7 @@
     deb: "{{ item }}"
     state: present
   with_items:
-  - 'https://downloads.slack-edge.com/linux_releases/slack-desktop-3.1.1-amd64.deb'
+  - 'https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb'
   - 'https://github.com/zeit/hyper/releases/download/2.0.0/hyper_2.0.0_amd64.deb'
 
 - name: Copy hyper config
@@ -82,9 +82,14 @@
     mode: '0664'
 
 - block:
-    - name: Install atom packages
+    - name: Install atom sync package
       shell: apm install sync-settings@0.8.6
+      become: yes
+      become: "{{ ansible_user }}"
   rescue:
     - name: apm not availible
       debug:
         msg: "There was an error accessing apm"
+
+- name: Set systemd to use windows time settings (dual boot)
+  shell: timedatectl set-local-rtc 1 --adjust-system-clock

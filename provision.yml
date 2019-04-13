@@ -4,3 +4,4 @@
   roles:
     - { role: gnome, tags: 'gnome'}
     - { role: common, tags: 'common'}
+    # - { role: nvidia, tags: 'nvidia'}
