@@ -1,0 +1,15 @@
+---
+# tasks file for awscli
+
+- name: Install pip3
+  apt:
+    name: python3-pip
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install awscli
+  pip:
+    name: awscli
+    state: present
+    executable: pip3

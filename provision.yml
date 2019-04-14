@@ -3,5 +3,6 @@
   gather_facts: yes
   roles:
     - { role: gnome, tags: 'gnome'}
+    - { role: nvidia, tags: 'nvidia'}
     - { role: common, tags: 'common'}
-    # - { role: nvidia, tags: 'nvidia'}
+    - { role: awscli, tags: 'awscli'}
