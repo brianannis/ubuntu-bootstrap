@@ -9,6 +9,13 @@
     group: "{{ ansible_user }}"
     mode: '0644'
 
+- name: Create development folder
+  file:
+    path: "{{ ansible_user_dir }}/development"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+
 - name: Create spotify shortcut folder
   file:
     path: /usr/share/desktop-directories
