@@ -3,8 +3,8 @@
 
 - name: Create bash aliases
   template:
-    src: bash_profile.j2
-    dest: "{{ ansible_user_dir }}/.bash_profile"
+    src: bashrc.j2
+    dest: "{{ ansible_user_dir }}/.bashrc"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: '0644'
@@ -30,14 +30,15 @@
   with_items:
     - { url: "https://dl-ssl.google.com/linux/linux_signing_key.pub", state: present }
     - { url: "https://packagecloud.io/AtomEditor/atom/gpgkey", state: present }
-    - { url: "https://download.docker.com/linux/ubuntu/gpg ", state: present }
+    - { url: "https://download.docker.com/linux/ubuntu/gpg", state: present }
+    - { url: "https://insomnia.rest/keys/debian-public.key.asc", state: present }
 
 - name: Install spotify key
   apt_key:
     keyserver: hkp://keyserver.ubuntu.com:80
     id: '931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90'
 
-- name: Install repos
+- name: Install sources
   apt_repository:
     repo: "{{ item.repo }}"
     state: present
@@ -45,6 +46,7 @@
   with_items:
   - {repo: 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main', filename: 'google-chrome'}
   - {repo: 'deb http://repository.spotify.com stable non-free', filename: 'spotify' }
+  - {repo: 'deb https://dl.bintray.com/getinsomnia/Insomnia /', filename: 'insomnia' }
   - {repo: 'deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main', filename: 'atom' }
   - {repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable main", filename: 'docker' }
 
@@ -70,6 +72,7 @@
   - gconf-editor
   - gnome-terminal
   - docker-ce
+  - insomnia
 
 - name: Install web debs
   apt:
