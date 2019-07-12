@@ -76,6 +76,8 @@
   - docker-ce
   - insomnia
   - kubectl
+  - seahorse
+  - ssh-askpass
 
 - name: Install web debs
   apt:
