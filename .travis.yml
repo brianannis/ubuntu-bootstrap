@@ -2,8 +2,6 @@
 os: ubuntu
 dist: bionic
 
-language: python
-
 # Use the new container infrastructure
 sudo: required
 
