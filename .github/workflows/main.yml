@@ -5,15 +5,15 @@ jobs:
     name: ubuntu integration
     runs-on: ubuntu-18.04
     steps:
-      - name: checkout
+      - name: checkout repo
         uses: actions/checkout@master
 
-      - name: setup ruby
+      - name: setup ruby env
         uses: actions/setup-ruby@v1
         with:
           ruby-version: '2.6'
 
-      - name: lint yaml
+      - name: lint yaml set
         run: |
           gem install yaml-lint
           yaml-lint -i $GITHUB_WORKSPACE
@@ -24,7 +24,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install ansible
 
-      - name: run bootstrap
+      - name: run bootstrap playbook
         run: |
           ansible-playbook -i localhost provision.yml --syntax-check
           ansible-playbook -i ci provision.yml --tags nvidia,common,awscli
