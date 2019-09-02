@@ -101,7 +101,7 @@
     dest: /usr/local/bin
     remote_src: yes
 
-- name: add  user to docker group
+- name: add user to docker group
   user:
     name: "{{ ansible_user }}"
     groups: docker

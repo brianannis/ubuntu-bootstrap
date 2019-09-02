@@ -15,7 +15,7 @@ jobs:
       - name: Lint yaml
         run: |
           gem install yaml-lint
-          yaml-lint -i $HOME
+          yaml-lint -i $GITHUB_WORKSPACE
       - name: Install dependencies
         run: |
           sudo apt-add-repository ppa:ansible/ansible -y
