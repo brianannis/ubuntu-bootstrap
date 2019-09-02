@@ -4,7 +4,7 @@
 - name: Update all packages to the latest version
   apt:
     upgrade: dist
-  when: lookup('env','TRAVIS') != 'true'
+  when: (lookup('env','TRAVIS') != 'true') or (lookup('env','GITHUB_REPOSITORY') == 'brianannis/ubuntu-bootstrap') 
 
 - name: Install gnome
   apt:
