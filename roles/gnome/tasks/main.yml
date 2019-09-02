@@ -21,7 +21,7 @@
 
 - name: Install materia + paper icons
   apt:
-    name: paper-icon-theme,paper-cursor-theme,materia-gtk-theme,gnome-tweak-tool,libglib2.0-dev,libxml2-utils
+    name: paper-icon-theme,materia-gtk-theme,gnome-tweak-tool,libglib2.0-dev,libxml2-utils
     state: present
 
 - name: Install extensions
