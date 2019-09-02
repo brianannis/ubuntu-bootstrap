@@ -5,23 +5,26 @@ jobs:
     name: ubuntu integration
     runs-on: ubuntu-18.04
     steps:
-      - name: Checkout
+      - name: checkout
         uses: actions/checkout@master
 
-      - uses: actions/setup-ruby@v1
+      - name: setup ruby
+        uses: actions/setup-ruby@v1
         with:
           ruby-version: '2.6'
 
-      - name: Lint yaml
+      - name: :mag: lint yaml
         run: |
           gem install yaml-lint
           yaml-lint -i $GITHUB_WORKSPACE
-      - name: Install dependencies
+
+      - name: install ansible
         run: |
           sudo apt-add-repository ppa:ansible/ansible -y
           sudo apt-get update
           sudo apt-get install ansible
-      - name: Run bootstrap
+
+      - name: run bootstrap
         run: |
           ansible-playbook -i localhost provision.yml --syntax-check
           ansible-playbook -i ci provision.yml
