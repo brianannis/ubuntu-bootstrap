@@ -27,4 +27,4 @@ jobs:
       - name: run bootstrap playbook
         run: |
           ansible-playbook -i localhost provision.yml --syntax-check
-          ansible-playbook -i ci provision.yml --tags nvidia,common,awscli
+          ansible-playbook -i ci provision.yml
