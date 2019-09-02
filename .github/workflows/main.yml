@@ -1,0 +1,19 @@
+name: Main workflow
+on: [push]
+jobs:
+  macOS:
+    name: ubuntu integration
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Install dependencies
+        run: |
+          sudo apt-add-repository ppa:ansible/ansible -y
+          sudo apt-get update
+          sudo apt-get install ansible
+      - name: Run bootstrap
+        run: |
+          ansible-playbook -i localhost provision.yml --syntax-check
+          ansible-playbook -i ci provision.yml --tags common
