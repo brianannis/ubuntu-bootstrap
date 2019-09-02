@@ -13,7 +13,7 @@ jobs:
         with:
           ruby-version: '2.6'
 
-      - name: :mag: lint yaml
+      - name: lint yaml
         run: |
           gem install yaml-lint
           yaml-lint -i $GITHUB_WORKSPACE
