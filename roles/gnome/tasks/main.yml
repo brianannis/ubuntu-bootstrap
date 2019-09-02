@@ -17,12 +17,11 @@
     state: present
     update_cache: yes
   with_items:
-  - 'ppa:snwh/pulp'
+  - 'ppa:snwh/ppa'
 
 - name: Install materia + paper icons
   apt:
     name: paper-icon-theme,paper-cursor-theme,materia-gtk-theme,gnome-tweak-tool,libglib2.0-dev,libxml2-utils
-    update_cache: yes
     state: present
 
 - name: Install extensions
