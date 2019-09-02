@@ -10,7 +10,7 @@ jobs:
 
       - name: Lint yaml
         run: |
-          apt update && apt install ruby-full -y
+          sudo apt update && apt install ruby-full -y
           gem install yaml-lint
           yaml-lint -i $HOME
       - name: Install dependencies
