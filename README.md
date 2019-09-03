@@ -6,4 +6,4 @@ Bootstrap ubuntu workstation
 
 ## Requirements
 Python 2.7 on device for gnome library module
-Ansible < 2.7 on control machine for gnome library module
+Ansible >= 2.8.4 on control machine for gnome library module
