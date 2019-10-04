@@ -80,7 +80,7 @@
     deb: "{{ item }}"
     state: present
   with_items:
-  - 'https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb'
+  - 'https://downloads.slack-edge.com/linux_releases/slack-desktop-4.0.2-amd64.deb'
   - 'https://github.com/zeit/hyper/releases/download/2.1.2/hyper_2.1.2_amd64.deb'
   - 'https://github.com/shiftkey/desktop/releases/download/release-1.6.5-linux6/GitHubDesktop-linux-1.6.5-linux6.deb'
 
