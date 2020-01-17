@@ -143,5 +143,5 @@
 - name: Set systemd to use windows time settings (dual boot)
   shell: timedatectl set-local-rtc 1 --adjust-system-clock
 
-- name: Set systemd to use windows time settings (dual boot)
+- name: Enable kubectl bash completion
   shell: kubectl completion bash >/etc/bash_completion.d/kubectl
