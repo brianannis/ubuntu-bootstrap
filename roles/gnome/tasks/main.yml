@@ -85,6 +85,7 @@
   shell: glib-compile-resources --target=/usr/share/gnome-shell/gnome-shell-theme.gresource gnome-shell-theme.gresource.xml
   args:
     chdir: /usr/share/themes/Materia/gnome-shell
+  tags: lockscreen
 
 - name: Copy lockscreen config
   copy:
@@ -95,6 +96,7 @@
     mode: '0644'
     remote_src: true
     backup: true
+  tags: lockscreen
 
 - name: Change lockscreen scaling for hidpi
   lineinfile:
@@ -102,9 +104,12 @@
     regexp: '<default>0<\/default>'
     line: '      <default>2</default>'
     backrefs: yes
+  tags: lockscreen
 
 - name: Render lockscreen
-  shell: glib-compile-schemas /usr/share/glib-2.0/schemas
+  shell:
+    cmd: glib-compile-schemas /usr/share/glib-2.0/schemas
+  tags: lockscreen
 
 - name: Copy gnome terminal config
   copy:
