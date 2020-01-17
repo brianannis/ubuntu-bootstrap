@@ -9,6 +9,20 @@
     group: "{{ ansible_user }}"
     mode: '0644'
 
+- name: Install complete-alias
+  get_url:
+    url: https://raw.githubusercontent.com/cykerway/complete-alias/master/bash_completion.sh
+    dest: "{{ ansible_env['HOME'] }}/.bash_completion"
+
+- name: Insert/Update "Match User" configuration block in /etc/ssh/sshd_config
+  blockinfile:
+    path: "{{ ansible_env['HOME'] }}/.bash_completion"
+    block: |
+      complete -F _complete_alias get
+      complete -F _complete_alias describe
+      complete -F _complete_alias apply
+      complete -F _complete_alias namespace
+
 - name: Create development folder
   file:
     path: "{{ ansible_user_dir }}/development"
@@ -75,6 +89,7 @@
   - kubectl
   - seahorse
   - ssh-askpass
+  - bash-completion
 
 - name: Install web debs
   apt:
@@ -127,3 +142,6 @@
 
 - name: Set systemd to use windows time settings (dual boot)
   shell: timedatectl set-local-rtc 1 --adjust-system-clock
+
+- name: Set systemd to use windows time settings (dual boot)
+  shell: kubectl completion bash >/etc/bash_completion.d/kubectl

@@ -116,13 +116,26 @@ if ! shopt -oq posix; then
   fi
 fi
 
+complete -C '/usr/local/bin/aws_completer' aws
 
 alias hs='history | grep'
+alias ll='ls -lart'
 alias econf='atom ~/.ssh/config'
+connect() {
+	EC2TARGET=$(aws ec2 describe-instances --instance-ids $1 --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
+	ssh $EC2TARGET
+}
 
 alias ap='ansible-playbook'
 alias ag='ansible-galaxy init'
 alias av='ansible-vault edit'
 
-alias dcu='docker-compose up -d'
-alias dcd='docker-compose down'
+## kube
+alias cluster-local='kubectl config use-context docker-for-desktop'
+
+## use switch
+alias get='kubectl get'
+alias describe='kubectl describe'
+alias delete='kubectl delete'
+alias apply='kubectl apply'
+alias namespace='kubectl config set-context --current --namespace'
