@@ -27,7 +27,10 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 from ansible.module_utils.basic import *
-import urllib2
+try:
+    import urllib2 as urlrequest
+except ImportError:
+    import urllib.request as urlrequest
 import json
 import os.path
 import zipfile
@@ -104,9 +107,9 @@ def _disable_extension(module, extension_uuid):
 
 def _get_extension_info(module, id, gnome_site, gnome_version):
     try:
-        info = urllib2.urlopen(gnome_site + '/extension-info/?pk=' + str(id) + '&shell_version=' + gnome_version)
+        info = urlrequest.urlopen(gnome_site + '/extension-info/?pk=' + str(id) + '&shell_version=' + gnome_version)
         info = json.load(info)
-    except Exception, e:
+    except Exception as e:
         module.fail_json(msg="Failure downloading metadata from %s %s" % (gnome_site, e))
 
     if not 'download_url' in info:
@@ -119,20 +122,20 @@ def _install_extension(module, gnome_site, gnome_extension_path, extension_url, 
     tmp_file = tempfile.TemporaryFile()
     download_url = gnome_site + extension_url
     try:
-        tmp_file.write(urllib2.urlopen(download_url).read())
+        tmp_file.write(urlrequest.urlopen(download_url).read())
         zip_file = zipfile.ZipFile(tmp_file)
         dest_dir = os.path.join(gnome_extension_path, extension_uuid)
         if not os.path.isdir(dest_dir):
             os.makedirs(dest_dir)
         zip_file.extractall(dest_dir)
         tmp_file.close()
-    except Exception, e:
+    except Exception as e:
         module.fail_json(msg="Failure installing the plugin %s" % e)
 
 def _get_installed_extension_info(module, gnome_extension_path, extension_uuid):
     try:
         info = json.load(open(os.path.join(gnome_extension_path, extension_uuid, "metadata.json")))
-    except Exception, e:
+    except Exception as e:
         module.fail_json(msg="Failure loading extension on local machine: %s" % e)
     return info
 
