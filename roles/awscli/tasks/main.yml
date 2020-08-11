@@ -3,7 +3,7 @@
 
 - name: Install pip3
   apt:
-    name: python3-pip
+    name: python3-pip,python-setuptools
     state: present
     update_cache: yes
     cache_valid_time: 3600
