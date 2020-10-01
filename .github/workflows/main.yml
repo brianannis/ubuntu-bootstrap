@@ -27,5 +27,5 @@ jobs:
         env:
           ANSIBLE_FORCE_COLOR: True
         run: |
-          ansible-playbook -i localhost provision.yml --syntax-check
+          ansible-playbook -i actions provision.yml --syntax-check
           ansible-playbook -i actions provision.yml
