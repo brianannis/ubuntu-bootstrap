@@ -72,9 +72,9 @@
     deb: "{{ item }}"
     state: present
   with_items:
-  - 'https://downloads.slack-edge.com/linux_releases/slack-desktop-4.8.0-amd64.deb'
+  - 'https://downloads.slack-edge.com/linux_releases/slack-desktop-4.9.1-amd64.deb'
   - 'https://github.com/vercel/hyper/releases/download/3.0.2/hyper_3.0.2_amd64.deb'
-  - 'https://github.com/shiftkey/desktop/releases/download/release-2.5.3-linux1/GitHubDesktop-linux-2.5.3-linux1.deb'
+  - 'https://github.com/shiftkey/desktop/releases/download/release-2.5.4-linux1/GitHubDesktop-linux-2.5.4-linux1.deb'
 
 - name: Install web binaries
   get_url:
@@ -84,8 +84,8 @@
     group: root
     mode: 0755
   with_items:
-   - { url: "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-Linux-x86_64", dest: /usr/local/bin/docker-compose }
-   - { url: "https://amazon-eks.s3.us-west-2.amazonaws.com/1.17.7/2020-07-08/bin/linux/amd64/aws-iam-authenticator", dest: /usr/local/bin/aws-iam-authenticator }
+   - { url: "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-Linux-x86_64", dest: /usr/local/bin/docker-compose }
+   - { url: "https://amazon-eks.s3.us-west-2.amazonaws.com/1.17.9/2020-08-04/bin/linux/<amd64>/aws-iam-authenticator", dest: /usr/local/bin/aws-iam-authenticator }
 
 - name: Unarchive eksctl
   unarchive:

@@ -1,15 +1,13 @@
 ---
 os: ubuntu
-dist: bionic
+dist: focal
 
 # Use the new container infrastructure
 sudo: required
 
 before_install:
-  - sudo apt-add-repository ppa:ansible/ansible -y
   - sudo apt-get update
   - sudo apt-get install ansible
-  - sudo service postgresql stop
 
 stages:
   - smoketest

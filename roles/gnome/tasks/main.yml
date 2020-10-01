@@ -8,8 +8,13 @@
 
 - name: Install gnome
   apt:
-    name: gnome-session,gdm3,nautilus,gnome-system-monitor,gnome-calculator,eog,gnome-screenshot,gnome-sushi,totem,gnome-disk-utility,gnome-calculator,gnome-logs,gnome-disk-utility,gnome-calendar
+    name: vanilla-gnome-desktop,vanilla-gnome-default-settings
     state: present
+
+- name: Purge games
+  apt:
+    name: gnome-sudoku,gnome-mines,gnome-mahjongg,aisleriot
+    state: absent
 
 - name: Add paper repo
   apt_repository:
@@ -50,7 +55,7 @@
     group: "{{ ansible_user }}"
     mode: '0644'
   with_items:
-  - {url: 'https://d3vv6lp55qjaqc.cloudfront.net/items/113T0b0f1Z302a1V3G3S/5120x2880.png', dest: "/home/{{ ansible_user }}/mountain-minimalist.png"}
+  - {url: 'https://mocah.org/uploads/posts/125036-nature-mountains-minimal-hd-5k.jpg', dest: "/home/{{ ansible_user }}/mountain-minimalist.jpg"}
 
 - name: Unzip fonts
   unarchive:
@@ -74,29 +79,12 @@
   - { key: org.gnome.desktop.interface.document-font-name, value: "'Overpass 11'" }
   - { key: org.gnome.desktop.wm.preferences.titlebar-font, value: "'Overpass Bold 11'" }
   # - { key: org.gnome.desktop.interface.scaling-factor, value: "2" }
-  # - { key: org.gnome.shell.extensions.user-theme.name, value: "'Materia'" }
+  - { key: org.gnome.shell.extensions.user-theme.name, value: "'Materia'" }
   # - { key: org.gnome.desktop.wm.preferences.theme, value: "'Materia'" }
-  - { key: org.gnome.desktop.background.picture-uri, value: "'file:///home/{{ ansible_user }}/mountain-minimalist.png'" }
+  - { key: org.gnome.desktop.background.picture-uri, value: "'file:///home/{{ ansible_user }}/mountain-minimalist.jpg'" }
   # - { key: org.gnome.desktop.screensaver.picture-uri, value: "'file:///home/{{ ansible_user }}/mountain-minimalist.png'" }
   - { key: org.gnome.desktop.screensaver.ubuntu-lock-on-suspend, value: "'false'" }
   - { key: org.gnome.shell.enabled-extensions, value: "['dash-to-panel@jderose9.github.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'TopIcons@phocean.net', 'remove-dropdown-arrows@mpdeimos.com']" }
-
-- name: Render lockscreen
-  shell: glib-compile-resources --target=/usr/share/gnome-shell/gnome-shell-theme.gresource gnome-shell-theme.gresource.xml
-  args:
-    chdir: /usr/share/themes/Materia/gnome-shell
-  tags: lockscreen
-
-- name: Copy lockscreen config
-  copy:
-    src: /usr/share/themes/Materia/gnome-shell/gnome-shell.css
-    dest: /usr/share/gnome-shell/theme/ubuntu.css
-    owner: root
-    group: root
-    mode: '0644'
-    remote_src: true
-    backup: true
-  tags: lockscreen
 
 - name: Change lockscreen scaling for hidpi
   lineinfile:
