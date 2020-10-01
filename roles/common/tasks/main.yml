@@ -85,7 +85,7 @@
     mode: 0755
   with_items:
    - { url: "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-Linux-x86_64", dest: /usr/local/bin/docker-compose }
-   - { url: "https://amazon-eks.s3.us-west-2.amazonaws.com/1.17.9/2020-08-04/bin/linux/<amd64>/aws-iam-authenticator", dest: /usr/local/bin/aws-iam-authenticator }
+   - { url: "https://amazon-eks.s3.us-west-2.amazonaws.com/1.17.9/2020-08-04/bin/linux/amd64/aws-iam-authenticator", dest: /usr/local/bin/aws-iam-authenticator }
 
 - name: Unarchive eksctl
   unarchive:
