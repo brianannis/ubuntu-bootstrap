@@ -24,6 +24,8 @@ jobs:
           sudo apt-get install ansible
 
       - name: run bootstrap playbook
+        env:
+          ANSIBLE_FORCE_COLOR: True
         run: |
           ansible-playbook -i localhost provision.yml --syntax-check
           ansible-playbook -i actions provision.yml
