@@ -78,6 +78,7 @@
   - { key: org.gnome.desktop.interface.font-name, value: "'Overpass 11'" }
   - { key: org.gnome.desktop.interface.document-font-name, value: "'Overpass 11'" }
   - { key: org.gnome.desktop.wm.preferences.titlebar-font, value: "'Overpass Bold 11'" }
+  - { key: org.gnome.desktop.wm.preferences.button-layout, value: "'appmenu:minimize,maximize,close'" }
   # - { key: org.gnome.desktop.interface.scaling-factor, value: "2" }
   - { key: org.gnome.shell.extensions.user-theme.name, value: "'Materia'" }
   # - { key: org.gnome.desktop.wm.preferences.theme, value: "'Materia'" }

@@ -47,7 +47,7 @@
     - { url: "https://download.docker.com/linux/ubuntu/gpg", state: present }
     - { url: "https://insomnia.rest/keys/debian-public.key.asc", state: present }
     - { url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg", state: present }
-    - { url: "https://download.spotify.com/debian/pubkey.gpg", state: present }
+    - { url: "https://download.spotify.com/debian/pubkey_0D811D58.gpg", state: present }
 
 - name: Install sources
   apt_repository:
@@ -110,7 +110,7 @@
 - block:
     - name: Install atom sync package
       shell: apm install sync-settings@0.8.6
-      become: "{{ ansible_user }}"
+      become_user: "{{ ansible_user }}"
   rescue:
     - name: apm not availible
       debug:
