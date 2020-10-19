@@ -14,7 +14,7 @@
     url: https://raw.githubusercontent.com/cykerway/complete-alias/master/complete_alias
     dest: "{{ ansible_env['HOME'] }}/.bash_completion"
 
-- name: Insert/Update "Match User" configuration block in /etc/ssh/sshd_config
+- name: Enable kubectl bash completion
   blockinfile:
     path: "{{ ansible_env['HOME'] }}/.bash_completion"
     block: |
@@ -47,7 +47,7 @@
     - { url: "https://download.docker.com/linux/ubuntu/gpg", state: present }
     - { url: "https://insomnia.rest/keys/debian-public.key.asc", state: present }
     - { url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg", state: present }
-    - { url: "https://download.spotify.com/debian/pubkey.gpg", state: present }
+    - { url: "https://download.spotify.com/debian/pubkey_0D811D58.gpg", state: present }
 
 - name: Install sources
   apt_repository:
@@ -64,41 +64,17 @@
 
 - name: Install common binaries
   apt:
-    name: "{{ item }}"
+    name: vim,vpnc,network-manager-vpnc-gnome,zeal,google-chrome-stable,spotify-client,wget,htop,screenfetch,ansible,atom,gconf-editor,gnome-terminal,docker-ce,insomnia,kubectl,seahorse,ssh-askpass,bash-completion
     state: present
-  with_items:
-  - vim
-  - vpnc
-  - network-manager-vpnc-gnome
-  - network-manager-vpnc-gnome
-  - openconnect
-  - network-manager-openconnect-gnome
-  - zeal
-  - google-chrome-stable
-  - spotify-client
-  - wget
-  - htop
-  - python-pip
-  - screenfetch
-  - ansible
-  - atom
-  - gconf-editor
-  - gnome-terminal
-  - docker-ce
-  - insomnia
-  - kubectl
-  - seahorse
-  - ssh-askpass
-  - bash-completion
 
 - name: Install web debs
   apt:
     deb: "{{ item }}"
     state: present
   with_items:
-  - 'https://downloads.slack-edge.com/linux_releases/slack-desktop-4.0.2-amd64.deb'
-  - 'https://github.com/zeit/hyper/releases/download/2.1.2/hyper_2.1.2_amd64.deb'
-  - 'https://github.com/shiftkey/desktop/releases/download/release-1.6.5-linux6/GitHubDesktop-linux-1.6.5-linux6.deb'
+  - 'https://downloads.slack-edge.com/linux_releases/slack-desktop-4.9.1-amd64.deb'
+  - 'https://github.com/vercel/hyper/releases/download/3.0.2/hyper_3.0.2_amd64.deb'
+  - 'https://github.com/shiftkey/desktop/releases/download/release-2.5.4-linux1/GitHubDesktop-linux-2.5.4-linux1.deb'
 
 - name: Install web binaries
   get_url:
@@ -108,8 +84,8 @@
     group: root
     mode: 0755
   with_items:
-   - { url: "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-Linux-x86_64", dest: /usr/local/bin/docker-compose }
-   - { url: "https://amazon-eks.s3-us-west-2.amazonaws.com/1.12.7/2019-03-27/bin/linux/amd64/aws-iam-authenticator", dest: /usr/local/bin/aws-iam-authenticator }
+   - { url: "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-Linux-x86_64", dest: /usr/local/bin/docker-compose }
+   - { url: "https://amazon-eks.s3.us-west-2.amazonaws.com/1.17.9/2020-08-04/bin/linux/amd64/aws-iam-authenticator", dest: /usr/local/bin/aws-iam-authenticator }
 
 - name: Unarchive eksctl
   unarchive:
@@ -134,7 +110,7 @@
 - block:
     - name: Install atom sync package
       shell: apm install sync-settings@0.8.6
-      become: "{{ ansible_user }}"
+      become_user: "{{ ansible_user }}"
   rescue:
     - name: apm not availible
       debug:
