@@ -105,7 +105,7 @@ jobs:
         env:
           ANSIBLE_FORCE_COLOR: True
         run: |
-          ansible-playbook -i actions provisions.yml --tags awscli
+          ansible-playbook -i actions provision.yml --tags awscli
 
       - name: cancel job
         uses: andymckay/cancel-action@0.2
