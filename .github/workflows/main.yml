@@ -13,19 +13,10 @@ jobs:
         with:
           ruby-version: '2.7'
 
-      - name: install ansible lint
-        run: |
-          sudo apt-get update
-          pip install ansible-lint
-
       - name: lint yaml set
         run: |
           gem install yaml-lint
           yaml-lint -i $GITHUB_WORKSPACE
-
-      - name: run ansible-lint
-        run: |
-          /home/runner/.local/bin/ansible-lint provision.yml
 
       - name: cancel job
         uses: andymckay/cancel-action@0.2
@@ -50,6 +41,10 @@ jobs:
           ansible-playbook -i actions provision.yml --syntax-check
           ansible-playbook -i actions provision.yml
 
+      - name: cancel job
+        uses: andymckay/cancel-action@0.2
+        if: ${{ failure() }}
+
   three:
     name: gnome integration
     runs-on: ubuntu-20.04
@@ -67,6 +62,10 @@ jobs:
           ANSIBLE_FORCE_COLOR: True
         run: |
           ansible-playbook -i actions provision.yml --tags gnome
+
+      - name: cancel job
+        uses: andymckay/cancel-action@0.2
+        if: ${{ failure() }}
 
   four:
     name: common integration
@@ -86,6 +85,10 @@ jobs:
         run: |
           ansible-playbook -i actions provision.yml --tags common
 
+      - name: cancel job
+        uses: andymckay/cancel-action@0.2
+        if: ${{ failure() }}
+
   five:
     name: awscli integration
     runs-on: ubuntu-20.04
@@ -102,4 +105,8 @@ jobs:
         env:
           ANSIBLE_FORCE_COLOR: True
         run: |
-          ansible-playbook -i actions provision.yml --tags awscli
+          ansible-playbook -i actions provisions.yml --tags awscli
+
+      - name: cancel job
+        uses: andymckay/cancel-action@0.2
+        if: ${{ failure() }}
