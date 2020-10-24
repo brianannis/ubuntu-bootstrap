@@ -13,10 +13,19 @@ jobs:
         with:
           ruby-version: '2.7'
 
+      - name: install ansible lint
+        run: |
+          sudo apt-get update
+          pip install ansible-lint
+
       - name: lint yaml set
         run: |
           gem install yaml-lint
           yaml-lint -i $GITHUB_WORKSPACE
+
+      - name: run ansible-lint
+        run: |
+          ansible-lint provision.yml
 
       - name: cancel job
         uses: andymckay/cancel-action@0.2
@@ -60,7 +69,7 @@ jobs:
           ansible-playbook -i actions provision.yml --tags gnome
 
   four:
-    name: gnome integration
+    name: common integration
     runs-on: ubuntu-20.04
     steps:
       - name: checkout repo
@@ -78,7 +87,7 @@ jobs:
           ansible-playbook -i actions provision.yml --tags common
 
   five:
-    name: gnome integration
+    name: awscli integration
     runs-on: ubuntu-20.04
     steps:
       - name: checkout repo
