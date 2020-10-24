@@ -91,7 +91,7 @@ jobs:
 name: integration tests
 on: [pull_request]
 jobs:
-  five:
+  six:
     name: syntax check
     runs-on: ubuntu-20.04
     steps:
@@ -111,7 +111,7 @@ jobs:
       - name: cancel job
         uses: andymckay/cancel-action@0.2
         if: ${{ failure() }}
-  two:
+  seven:
     name: e2e integration
     runs-on: ubuntu-20.04
     steps:
