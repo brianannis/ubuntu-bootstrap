@@ -1,8 +1,8 @@
-name: Main workflow
+name: unit tests
 on: [push]
 jobs:
-  ubuntu:
-    name: ubuntu integration
+  one:
+    name: syntax check
     runs-on: ubuntu-20.04
     steps:
       - name: checkout repo
@@ -18,6 +18,17 @@ jobs:
           gem install yaml-lint
           yaml-lint -i $GITHUB_WORKSPACE
 
+      - name: cancel job
+        uses: andymckay/cancel-action@0.2
+        if: ${{ failure() }}
+
+  two:
+    name: gnome integration
+    runs-on: ubuntu-20.04
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@master
+
       - name: install ansible
         run: |
           sudo apt-get update
@@ -27,5 +38,52 @@ jobs:
         env:
           ANSIBLE_FORCE_COLOR: True
         run: |
-          ansible-playbook -i actions provision.yml --syntax-check
-          ansible-playbook -i actions provision.yml
+          ansible-playbook -i actions provision.yml --tags gnome
+
+      - name: cancel job
+        uses: andymckay/cancel-action@0.2
+        if: ${{ failure() }}
+
+  three:
+    name: common integration
+    runs-on: ubuntu-20.04
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@master
+
+      - name: install ansible
+        run: |
+          sudo apt-get update
+          sudo apt-get install ansible
+
+      - name: run bootstrap playbook
+        env:
+          ANSIBLE_FORCE_COLOR: True
+        run: |
+          ansible-playbook -i actions provision.yml --tags common
+
+      - name: cancel job
+        uses: andymckay/cancel-action@0.2
+        if: ${{ failure() }}
+
+  four:
+    name: awscli integration
+    runs-on: ubuntu-20.04
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@master
+
+      - name: install ansible
+        run: |
+          sudo apt-get update
+          sudo apt-get install ansible
+
+      - name: run bootstrap playbook
+        env:
+          ANSIBLE_FORCE_COLOR: True
+        run: |
+          ansible-playbook -i actions provision.yml --tags awscli
+
+      - name: cancel job
+        uses: andymckay/cancel-action@0.2
+        if: ${{ failure() }}
