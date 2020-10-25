@@ -23,29 +23,6 @@ jobs:
         if: ${{ failure() }}
 
   two:
-    name: e2e integration
-    runs-on: ubuntu-20.04
-    steps:
-      - name: checkout repo
-        uses: actions/checkout@master
-
-      - name: install ansible
-        run: |
-          sudo apt-get update
-          sudo apt-get install ansible
-
-      - name: run bootstrap playbook
-        env:
-          ANSIBLE_FORCE_COLOR: True
-        run: |
-          ansible-playbook -i actions provision.yml --syntax-check
-          ansible-playbook -i actions provision.yml
-
-      - name: cancel job
-        uses: andymckay/cancel-action@0.2
-        if: ${{ failure() }}
-
-  three:
     name: gnome integration
     runs-on: ubuntu-20.04
     steps:
@@ -67,7 +44,7 @@ jobs:
         uses: andymckay/cancel-action@0.2
         if: ${{ failure() }}
 
-  four:
+  three:
     name: common integration
     runs-on: ubuntu-20.04
     steps:
@@ -89,7 +66,7 @@ jobs:
         uses: andymckay/cancel-action@0.2
         if: ${{ failure() }}
 
-  five:
+  four:
     name: awscli integration
     runs-on: ubuntu-20.04
     steps:
