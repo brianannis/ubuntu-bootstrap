@@ -1,4 +1,4 @@
-name: Main workflow
+name: unit tests
 on: [push]
 jobs:
   one:
