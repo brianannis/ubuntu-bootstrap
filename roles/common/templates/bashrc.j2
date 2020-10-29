@@ -125,17 +125,28 @@ connect() {
 	EC2TARGET=$(aws ec2 describe-instances --instance-ids $1 --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
 	ssh $EC2TARGET
 }
+connect-ec2() {
+	EC2TARGET=$(aws ec2 describe-instances --instance-ids $1 --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
+	ssh ec2-user@$EC2TARGET
+}
 
+## ansible
 alias ap='ansible-playbook'
 alias ag='ansible-galaxy init'
 alias av='ansible-vault edit'
 
-## kube
+## cluster
+# alias cluster-dev='enable-dev && kubectl config use-context arn:aws:eks:us-east-1:xxxxxxxxxxx:cluster/clustername'
 alias cluster-local='kubectl config use-context docker-for-desktop'
 
-## use switch
+## kube
 alias get='kubectl get'
 alias describe='kubectl describe'
 alias delete='kubectl delete'
 alias apply='kubectl apply'
 alias namespace='kubectl config set-context --current --namespace'
+
+## aws
+# alias enable-dev='export AWS_PROFILE='dev''
+
+export AWS_PROFILE='default'
