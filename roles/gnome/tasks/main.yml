@@ -47,15 +47,15 @@
     state: directory
     recurse: yes
 
-- name: Download assets
-  get_url:
-    url: "{{ item.url }}"
-    dest: "{{ item.dest }}"
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-    mode: '0644'
-  with_items:
-  - {url: 'https://mocah.org/uploads/posts/125036-nature-mountains-minimal-hd-5k.jpg', dest: "/home/{{ ansible_user }}/mountain-minimalist.jpg"}
+# - name: Download assets
+#   get_url:
+#     url: "{{ item.url }}"
+#     dest: "{{ item.dest }}"
+#     owner: "{{ ansible_user }}"
+#     group: "{{ ansible_user }}"
+#     mode: '0644'
+#   with_items:
+#   - {url: 'https://mocah.org/uploads/posts/125036-nature-mountains-minimal-hd-5k.jpg', dest: "/home/{{ ansible_user }}/mountain-minimalist.jpg"}
 
 - name: Unzip fonts
   unarchive:

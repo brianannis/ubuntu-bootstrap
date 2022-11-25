@@ -4,7 +4,7 @@
 - name: Create bash aliases
   template:
     src: bashrc.j2
-    dest: "{{ ansible_user_dir }}/.bashrc"
+    dest: "/home/{{ ansible_user }}/.bashrc"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: '0644'
@@ -12,11 +12,14 @@
 - name: Install complete-alias
   get_url:
     url: https://raw.githubusercontent.com/cykerway/complete-alias/master/complete_alias
-    dest: "{{ ansible_env['HOME'] }}/.bash_completion"
+    dest: "/home/{{ ansible_user }}/.bash_completion"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0644'
 
 - name: Enable kubectl bash completion
   blockinfile:
-    path: "{{ ansible_env['HOME'] }}/.bash_completion"
+    path: "/home/{{ ansible_user }}/.bash_completion"
     block: |
       complete -F _complete_alias get
       complete -F _complete_alias describe
@@ -47,7 +50,7 @@
     - { url: "https://download.docker.com/linux/ubuntu/gpg", state: present }
     - { url: "https://insomnia.rest/keys/debian-public.key.asc", state: present }
     - { url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg", state: present }
-    - { url: "https://download.spotify.com/debian/pubkey_0D811D58.gpg", state: present }
+    - { url: "https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg", state: present }
 
 - name: Install sources
   apt_repository:
@@ -57,7 +60,7 @@
   with_items:
   - {repo: 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main', filename: 'google-chrome'}
   - {repo: 'deb http://repository.spotify.com stable non-free', filename: 'spotify' }
-  - {repo: 'deb https://dl.bintray.com/getinsomnia/Insomnia /', filename: 'insomnia' }
+  - {repo: 'deb [trusted=yes arch=amd64] https://download.konghq.com/insomnia-ubuntu/ default all', filename: 'insomnia' }
   - {repo: 'deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main', filename: 'atom' }
   - {repo: 'deb https://apt.kubernetes.io/ kubernetes-xenial main', filename: 'kubernetes' }
   - {repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable main", filename: 'docker' }
@@ -88,7 +91,7 @@
 
 - name: Unarchive eksctl
   unarchive:
-    src: https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_Linux_amd64.tar.gz
+    src: https://github.com/weaveworks/eksctl/releases/download/v0.80.0/eksctl_Linux_amd64.tar.gz
     dest: /usr/local/bin
     remote_src: yes
 
