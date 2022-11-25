@@ -74,7 +74,7 @@
     state: present
   with_items:
   - 'https://downloads.slack-edge.com/releases/linux/4.28.184/prod/x64/slack-desktop-4.28.184-amd64.deb'
-  - 'https://github.com/vercel/hyper/releases/download/3.0.2/hyper_3.3.0_amd64.deb'
+  - 'https://github.com/vercel/hyper/releases/download/3.3.0/hyper_3.3.0_amd64.deb'
   - 'https://github.com/shiftkey/desktop/releases/download/release-3.1.1-linux1/GitHubDesktop-linux-3.1.1-linux1.deb'
   - 'https://az764295.vo.msecnd.net/stable/6261075646f055b99068d3688932416f2346dd3b/code_1.73.1-1667967334_amd64.deb'
 
