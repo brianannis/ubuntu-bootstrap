@@ -1,4 +1,4 @@
-![integration tests](https://github.com/brianannis/ubuntu-bootstrap/workflows/integration%20tests/badge.svg)
+![integration tests](https://github.com/brianannis/ubuntu-bootstrap/actions/workflows/main.yml/badge.svg?branch=master)
 
 # ubuntu-bootstrap
 Bootstrap ubuntu workstation
